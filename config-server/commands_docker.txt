@@ -1,0 +1,2 @@
+docker build -t devmarkz/config-server .
+docker run --name config-server --network rede-microsservicos -p 8888:8888 -d devmarkz/config-server
