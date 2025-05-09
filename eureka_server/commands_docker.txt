@@ -1,0 +1,2 @@
+docker build -t devmarkz/config-server .
+docker run --name eureka-server -d --network rede-microsservicos -p 8761:8761 devmarkz/eureka-server
