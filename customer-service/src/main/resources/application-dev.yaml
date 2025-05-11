@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customer_db
+    username: postgres
+    password: aluno
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/customer_db
+    user: postgres
+    password: aluno
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
