@@ -67,4 +67,20 @@ public class ClienteService {
         clienteExistente.setNome(cliente.getNome() == null? clienteExistente.getNome() : cliente.getNome());
     }
 
+    @Transactional
+    public void efetuarCompra(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteInexistenteException("Cliente inexistente!"));
+
+        cliente.efetuarCompra();
+    }
+
+    @Transactional
+    public void cancelarCompra(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteInexistenteException("Cliente inexistente!"));
+
+        cliente.cancelarCompra();
+    }
+
 }

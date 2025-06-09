@@ -34,8 +34,14 @@ public class Cliente {
         this.isFidelizado = isFidelizado;
     }
 
-    public void compraEfetuada(){
+    public void efetuarCompra() {
         this.quantidadeDeCompras++;
+        if (this.quantidadeDeCompras >= 20) this.isFidelizado = true;
+    }
+
+    public void cancelarCompra() {
+        this.quantidadeDeCompras--;
+        if (this.quantidadeDeCompras < 20) this.isFidelizado = false;
     }
 
     public Long getId() {

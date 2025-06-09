@@ -62,4 +62,16 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}/compra")
+    public ResponseEntity<Void> efetuaCompra(@PathVariable Long id) {
+        clienteService.efetuarCompra(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/cancelamento-compra")
+    public ResponseEntity<Void> cancelarCompra(@PathVariable Long id) {
+        clienteService.cancelarCompra(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
