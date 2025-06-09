@@ -2,7 +2,7 @@ spring:
   application:
     name: produto-service
   profiles:
-    active: test
+    active: dev
   cloud:
     discovery:
       enabled: true

@@ -1,0 +1,2 @@
+INSERT INTO tb_produtos (nome, descricao, preco, quantidade) VALUES ('Geladeira Frost Free', '12000 BTUS', 3000.50, 5);
+INSERT INTO tb_produtos (nome, descricao, preco, quantidade) VALUES ('Televisão LG', '52 polegadas', 5620.67, 5);
