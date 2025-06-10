@@ -1,0 +1,7 @@
+CREATE TABLE tb_pedidos (
+    id BIGSERIAL PRIMARY KEY,
+    cliente_id BIGINT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    total DECIMAL(10, 2)
+);
