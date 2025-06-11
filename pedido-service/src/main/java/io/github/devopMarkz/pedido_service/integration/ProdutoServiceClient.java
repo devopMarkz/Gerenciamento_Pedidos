@@ -15,10 +15,10 @@ public interface ProdutoServiceClient {
     @GetMapping("/produtos/{id}")
     public ProdutoDTO findProdutoById(@PathVariable Long id);
 
-    @PutMapping("/estoque/reducao")
+    @PutMapping("/produtos/estoque/reducao")
     public void retirarProdutosDeEstoque(@RequestBody List<ProdutoDTO> produtos);
 
-    @PutMapping("/estoque/reposicao")
+    @PutMapping("/produtos/estoque/reposicao")
     public void reporEstoque(@RequestBody List<ProdutoDTO> produtos);
 
 }

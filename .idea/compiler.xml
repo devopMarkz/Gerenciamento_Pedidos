@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="eureka-server" />
         <module name="produto-service" />
         <module name="cliente-service" />
+        <module name="eureka-server" />
+        <module name="pedido-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -16,6 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cliente-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="pedido-service" options="-parameters" />
       <module name="produto-service" options="-parameters" />
     </option>
   </component>

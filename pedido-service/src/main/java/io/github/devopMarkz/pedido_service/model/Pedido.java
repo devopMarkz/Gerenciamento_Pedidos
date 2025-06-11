@@ -38,17 +38,17 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long clienteId, StatusPedido status, BigDecimal total) {
+    public Pedido(Long clienteId, StatusPedido status) {
         this.clienteId = clienteId;
         this.status = status;
-        this.total = total;
+        this.total = itens.stream().map(ItemPedido::getPreco).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Pedido(Long id, Long clienteId, StatusPedido status, BigDecimal total) {
+    public Pedido(Long id, Long clienteId, StatusPedido status) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
-        this.total = total;
+        this.total = itens.stream().map(ItemPedido::getPreco).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public Long getId() {

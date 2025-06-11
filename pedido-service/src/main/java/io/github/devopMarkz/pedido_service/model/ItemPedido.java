@@ -32,21 +32,23 @@ public class ItemPedido {
     public ItemPedido() {
     }
 
-    public ItemPedido(Pedido pedido, Long produtoId, Integer quantidade, BigDecimal preco, BigDecimal totalItem) {
+    public ItemPedido(Pedido pedido, Long produtoId, Integer quantidade, BigDecimal preco) {
         this.pedido = pedido;
         this.produtoId = produtoId;
         this.quantidade = quantidade;
         this.preco = preco;
-        this.totalItem = totalItem;
     }
 
-    public ItemPedido(Long id, Pedido pedido, Long produtoId, Integer quantidade, BigDecimal preco, BigDecimal totalItem) {
+    public ItemPedido(Long id, Pedido pedido, Long produtoId, Integer quantidade, BigDecimal preco) {
         this.id = id;
         this.pedido = pedido;
         this.produtoId = produtoId;
         this.quantidade = quantidade;
         this.preco = preco;
-        this.totalItem = totalItem;
+    }
+
+    public void calcularTotalItem() {
+        this.totalItem = BigDecimal.valueOf(this.quantidade.doubleValue()).multiply(this.preco);
     }
 
     public Long getId() {

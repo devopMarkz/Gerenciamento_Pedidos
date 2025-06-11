@@ -44,7 +44,7 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("cpf//{cpf}")
     public ResponseEntity<Cliente> findByCpf(@PathVariable String cpf) {
         Cliente cliente = clienteService.findByCpf(cpf);
         return ResponseEntity.ok(cliente);
