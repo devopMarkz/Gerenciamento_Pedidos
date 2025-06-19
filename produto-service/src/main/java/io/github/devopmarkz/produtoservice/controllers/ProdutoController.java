@@ -30,7 +30,7 @@ public class ProdutoController {
             @RequestParam(name = "nome", required = false) String nome,
             @RequestParam(name = "descricao", required = false) String descricao
     ) {
-        List<Produto> produtos = produtoService.findByFilter(id, nome, descricao);
+        List<Produto> produtos = produtoService.findByFilter(id, nome, descricao).stream().sorted().toList();
         return ResponseEntity.ok(produtos);
     }
 
