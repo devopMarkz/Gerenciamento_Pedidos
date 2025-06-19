@@ -2,6 +2,10 @@ package io.github.devopMarkz.cliente_service.controllers;
 
 import io.github.devopMarkz.cliente_service.model.Cliente;
 import io.github.devopMarkz.cliente_service.services.ClienteService;
+import io.github.devopMarkz.cliente_service.services.PlanilhaService;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +20,11 @@ import static io.github.devopMarkz.cliente_service.utils.UriGenerator.generateUr
 public class ClienteController {
 
     private final ClienteService clienteService;
+    private final PlanilhaService planilhaService;
 
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, PlanilhaService planilhaService) {
         this.clienteService = clienteService;
+        this.planilhaService = planilhaService;
     }
 
     @PostMapping
@@ -36,7 +42,7 @@ public class ClienteController {
             @RequestParam(name = "isFidelizado", required = false) boolean isFidelizado
     ) {
         List<Cliente> clientes = clienteService.findByFilters(id, nome, cpf, isFidelizado);
-        return ResponseEntity.ok(clientes);
+        return ResponseEntity.ok(clientes.stream().sorted().toList());
     }
 
     @GetMapping("/{id}")
@@ -73,6 +79,18 @@ public class ClienteController {
     public ResponseEntity<Void> cancelarCompra(@PathVariable Long id) {
         clienteService.cancelarCompra(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/download/excel")
+    public ResponseEntity<byte[]> downloadExcel(){
+        byte[] resource = planilhaService.gerarPlanilha();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("relatorio_clientes.xlsx").build());
+        headers.setContentLength(resource.length);
+
+        return ResponseEntity.ok().headers(headers).body(resource);
     }
 
 }

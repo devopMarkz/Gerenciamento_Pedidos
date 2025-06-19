@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_clientes")
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,5 +94,10 @@ public class Cliente {
     @Override
     public int hashCode() {
         return Objects.hash(id, cpf);
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return id.compareTo(o.id);
     }
 }
