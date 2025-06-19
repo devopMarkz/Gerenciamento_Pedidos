@@ -3,7 +3,6 @@ package io.github.devopmarkz.produtoservice.controllers;
 import io.github.devopmarkz.produtoservice.model.Produto;
 import io.github.devopmarkz.produtoservice.services.PlanilhaService;
 import io.github.devopmarkz.produtoservice.services.ProdutoService;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

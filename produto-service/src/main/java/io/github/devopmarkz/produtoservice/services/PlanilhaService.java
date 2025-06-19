@@ -47,7 +47,12 @@ public class PlanilhaService {
 
             int lastRowNum = sheet.getLastRowNum();
 
-            Double valorTotal = produtos.stream().map(produto -> produto.getPreco().doubleValue()).reduce(0.0, Double::sum);
+            Double valorTotal = 0.0;
+
+            for (Produto prod : produtos){
+                valorTotal += prod.getPreco().doubleValue() * prod.getQuantidade();
+            }
+
             Integer quantiaTotalProdutos = produtos.stream().map(Produto::getQuantidade).reduce(0, Integer::sum);
 
             for (int i = 0; i < lastRowNum; i++) {
