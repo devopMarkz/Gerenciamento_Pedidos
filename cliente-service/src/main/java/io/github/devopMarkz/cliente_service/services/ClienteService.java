@@ -25,6 +25,10 @@ public class ClienteService {
             throw new ClienteInexistenteException("Cliente inexistente!");
         }
 
+        if(cliente.getNome().isEmpty() || cliente.getNome() == null || cliente.getNome().equals("")) {
+            cliente.setNome("CLIENTE BALCÃO");
+        }
+
         return clienteRepository.save(cliente);
     }
 
