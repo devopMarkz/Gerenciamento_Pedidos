@@ -7,7 +7,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_produtos")
-public class Produto {
+public class Produto implements Comparable<Produto> {
+
+    @Override
+    public int compareTo(Produto o) {
+        return id.compareTo(o.id);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

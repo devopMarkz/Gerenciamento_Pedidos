@@ -1,8 +1,10 @@
 package io.github.devopmarkz.produtoservice.controllers;
 
 import io.github.devopmarkz.produtoservice.model.Produto;
+import io.github.devopmarkz.produtoservice.services.PlanilhaService;
 import io.github.devopmarkz.produtoservice.services.ProdutoService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,9 +17,11 @@ import java.util.List;
 public class ProdutoController {
 
     private final ProdutoService produtoService;
+    private final PlanilhaService planilhaService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(ProdutoService produtoService, PlanilhaService planilhaService) {
         this.produtoService = produtoService;
+        this.planilhaService = planilhaService;
     }
 
     @GetMapping
@@ -65,6 +69,18 @@ public class ProdutoController {
     public ResponseEntity<Void> reporEstoque(@RequestBody List<Produto> produtos) {
         produtoService.reporEstoque(produtos);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/download/excel")
+    public ResponseEntity<byte[]> downloadExcel() {
+        byte[] resource = planilhaService.gerarPlanilha();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("relatorio.xlsx").build());
+        headers.setContentLength(resource.length);
+
+        return ResponseEntity.ok().headers(headers).body(resource);
     }
 
 }
