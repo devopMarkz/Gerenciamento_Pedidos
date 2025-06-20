@@ -30,8 +30,10 @@ public class PedidoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PedidoDTO>> findAll() {
-        return ResponseEntity.ok(pedidoService.getPedidos());
+    public ResponseEntity<List<PedidoDTO>> findAll(
+            @RequestParam(value = "status", required = false) String status
+    ) {
+        return ResponseEntity.ok(pedidoService.getPedidos(status));
     }
 
     @PutMapping("/{id}/confirmar")

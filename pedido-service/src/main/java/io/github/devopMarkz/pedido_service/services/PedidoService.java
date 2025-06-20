@@ -46,7 +46,12 @@ public class PedidoService {
     }
 
     @Transactional(readOnly = true)
-    public List<PedidoDTO> getPedidos() {
+    public List<PedidoDTO> getPedidos(String status) {
+        if(status != null){
+            return buscarPorStatus(status).stream()
+                    .map(pedido -> modelMapper.map(pedido, PedidoDTO.class))
+                    .collect(Collectors.toList());
+        }
         List<Pedido> pedidos = pedidoRepository.findAll();
         List<PedidoDTO> pedidoDTOS = pedidos.stream().map(p -> modelMapper.map(p, PedidoDTO.class)).toList();
         return pedidoDTOS;
@@ -110,6 +115,11 @@ public class PedidoService {
         produtoServiceClient.reporEstoque(produtoDTOS);
 
         return modelMapper.map(pedido, PedidoDTO.class);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Pedido> buscarPorStatus(String status) {
+        return pedidoRepository.buscarPedidoPorStatus(status);
     }
 
 }
