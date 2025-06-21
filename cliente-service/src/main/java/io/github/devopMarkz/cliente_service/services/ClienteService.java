@@ -35,6 +35,8 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public List<Cliente> findByFilters(Long id, String nome, String cpf, boolean isFidelizado) {
         Cliente cliente = new Cliente(id, nome, cpf, isFidelizado);
+        cliente.setQuantidadeDeCompras(null);
+        cliente.setFidelizado(null);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)

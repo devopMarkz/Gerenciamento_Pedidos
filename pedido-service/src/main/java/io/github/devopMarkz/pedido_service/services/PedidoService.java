@@ -100,6 +100,8 @@ public class PedidoService {
 
         pedido.setStatus(StatusPedido.CONCLUIDO);
 
+        clienteServiceClient.efetuarCompra(pedido.getClienteId());
+
         return pedido;
     }
 
@@ -113,6 +115,8 @@ public class PedidoService {
         List<ProdutoDTO> produtoDTOS = pedido.getItens().stream().map(itemPedido -> produtoServiceClient.findProdutoById(itemPedido.getId())).toList();
 
         produtoServiceClient.reporEstoque(produtoDTOS);
+
+        clienteServiceClient.cancelaCompra(pedido.getClienteId());
 
         return modelMapper.map(pedido, PedidoDTO.class);
     }
