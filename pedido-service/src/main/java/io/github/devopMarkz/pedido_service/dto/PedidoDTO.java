@@ -14,6 +14,7 @@ public class PedidoDTO {
     private Long clienteId;
     private StatusPedido status;
     private BigDecimal total;
+    private LocalDateTime dataCriacao;
 
     @JsonManagedReference
     private List<ItemPedidoDTO> itens = new ArrayList<>();
@@ -21,18 +22,20 @@ public class PedidoDTO {
     public PedidoDTO() {
     }
 
-    public PedidoDTO(Long id, Long clienteId, StatusPedido status, BigDecimal total) {
+    public PedidoDTO(Long id, Long clienteId, StatusPedido status, BigDecimal total, LocalDateTime dataCriacao) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
         this.total = total;
+        this.dataCriacao = dataCriacao;
     }
 
-    public PedidoDTO(Long id, Long clienteId, StatusPedido status, BigDecimal total, List<ItemPedidoDTO> itens) {
+    public PedidoDTO(Long id, Long clienteId, StatusPedido status, BigDecimal total, LocalDateTime dataCriacao, List<ItemPedidoDTO> itens) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
         this.total = total;
+        this.dataCriacao = dataCriacao;
         this.itens = itens;
     }
 
@@ -66,6 +69,14 @@ public class PedidoDTO {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public List<ItemPedidoDTO> getItens() {
