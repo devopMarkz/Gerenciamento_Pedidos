@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: auth-server
+  profiles:
+    active: dev
+server:
+  port: 9090
+
+secret-key: ${SECRET_KEY:mySecretKey}
