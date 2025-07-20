@@ -4,5 +4,10 @@
       "name": "secret-key",
       "type": "java.lang.String",
       "description": "Secret key para validar token."
-  }
-] }
+    },
+    {
+      "name": "secret-access",
+      "type": "java.lang.String",
+      "description": "Secret para acessar microsserviços."
+    }
+  ] }

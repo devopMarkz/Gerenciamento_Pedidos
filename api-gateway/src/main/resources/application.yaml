@@ -19,3 +19,4 @@ server:
   port: 8765
 
 secret-key: ${SECRET_KEY:mySecretKey}
+secret-access: ${SECRET_ACCESS_MICROSERVICES:secret-access-microservice}

@@ -19,6 +19,9 @@ public class CustomGlobalFilter implements GlobalFilter {
     @Value("${secret-key}")
     private String secretKey;
 
+    @Value("${secret-access}")
+    private String secretAccess;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -45,7 +48,7 @@ public class CustomGlobalFilter implements GlobalFilter {
                     .mutate()
                     .header("X-User-Email", email)
                     .header("X-User-Role", role)
-                    .header("X-Secret-Access", "secret-access-microservice")
+                    .header("X-Secret-Access", secretAccess)
                     .build();
 
             ServerWebExchange newExchange = exchange.mutate().request(request).build();

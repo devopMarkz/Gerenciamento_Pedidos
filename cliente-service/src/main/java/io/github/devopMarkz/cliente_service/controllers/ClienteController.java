@@ -16,7 +16,6 @@ import static io.github.devopMarkz.cliente_service.utils.UriGenerator.generateUr
 
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin("*")
 public class ClienteController {
 
     private final ClienteService clienteService;

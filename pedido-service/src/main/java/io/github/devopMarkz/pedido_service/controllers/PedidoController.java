@@ -13,7 +13,6 @@ import static io.github.devopMarkz.pedido_service.utils.GeneratorUri.generateUri
 
 @RestController
 @RequestMapping("/pedidos")
-@CrossOrigin("*")
 public class PedidoController {
 
     private final PedidoService pedidoService;
