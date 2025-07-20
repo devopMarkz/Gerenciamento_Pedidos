@@ -119,7 +119,7 @@ services:
       POSTGRES_PASSWORD: aluno
       POSTGRES_DB: clientes_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: always
     networks:
       - gerencia-pedidos-network
@@ -131,7 +131,7 @@ services:
       POSTGRES_PASSWORD: aluno
       POSTGRES_DB: produtos_db
     ports:
-      - "5432:5432"
+      - "5434:5432"
     restart: always
     networks:
       - gerencia-pedidos-network
@@ -143,7 +143,7 @@ services:
       POSTGRES_PASSWORD: aluno
       POSTGRES_DB: pedidos_db
     ports:
-      - "5432:5432"
+      - "5435:5432"
     restart: always
     networks:
       - gerencia-pedidos-network
