@@ -1,0 +1,154 @@
+version: '3.8'
+services:
+  eureka-server:
+    image: devmarkz/naming-server:latest
+    build:
+      context: ./eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - gerencia-pedidos-network
+    restart: always
+
+  auth-server:
+    image: devmarkz/auth-server:latest
+    build:
+      context: ./auth-server
+    ports:
+      - "9090:9090"
+    environment:
+      SECRET_KEY: mySecretKey
+      DB_USERNAME: postgres
+      DB_PASSWORD: aluno
+      DB_URL: jdbc:postgresql://bd-usuarios:5432/usuarios_db
+    restart: always
+    depends_on:
+      - bd-usuarios
+    networks:
+      - gerencia-pedidos-network
+
+  gestao-pedidos-api-gateway:
+    image: devmarkz/gestao-pedidos-api-gateway:latest
+    build:
+      context: ./api-gateway
+    ports:
+      - "8765:8765"
+    restart: always
+    environment:
+      EUREKA_URL: http://eureka-server:8761/eureka
+      SECRET_KEY: mySecretKey
+      SECRET_ACCESS_MICROSERVICES: secret-access-microservice
+    depends_on:
+      - eureka-server
+    networks:
+      - gerencia-pedidos-network
+
+  cliente-service:
+    image: devmarkz/cliente-service:latest
+    build:
+      context: ./cliente-service
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_URL: http://eureka-server:8761/eureka
+      DB_URL: jdbc:postgresql://bd-clientes:5432/clientes_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: aluno
+    restart: always
+    depends_on:
+      - bd-clientes
+      - eureka-server
+      - gestao-pedidos-api-gateway
+    networks:
+      - gerencia-pedidos-network
+
+  produto-service:
+    image: devmarkz/produto-service:latest
+    build:
+      context: ./produto-service
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_URL: http://eureka-server:8761/eureka
+      DB_URL: jdbc:postgresql://bd-produtos:5432/produtos_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: aluno
+    restart: always
+    depends_on:
+      - eureka-server
+      - bd-produtos
+      - gestao-pedidos-api-gateway
+    networks:
+      - gerencia-pedidos-network
+
+  pedido-service:
+    image: devmarkz/pedido-service:latest
+    build:
+      context: ./pedido-service
+    ports:
+      - "8082:8082"
+    restart: always
+    environment:
+      EUREKA_URL: http://eureka-server:8761/eureka
+      DB_URL: jdbc:postgresql://bd-pedidos:5432/pedidos_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: aluno
+    networks:
+      - gerencia-pedidos-network
+    depends_on:
+      - eureka-server
+      - gestao-pedidos-api-gateway
+      - bd-pedidos
+
+  bd-usuarios:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aluno
+      POSTGRES_DB: usuarios_db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - gerencia-pedidos-network
+
+  bd-clientes:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aluno
+      POSTGRES_DB: clientes_db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - gerencia-pedidos-network
+
+  bd-produtos:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aluno
+      POSTGRES_DB: produtos_db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - gerencia-pedidos-network
+
+  bd-pedidos:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aluno
+      POSTGRES_DB: pedidos_db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - gerencia-pedidos-network
+
+networks:
+  gerencia-pedidos-network:
+    name: gerencia-pedidos-network
+    driver: bridge
