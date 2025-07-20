@@ -5,5 +5,5 @@ RUN mvn package -DskipTests
 
 FROM amazoncorretto:21
 WORKDIR /app
-COPY --FROM=builder ./builder/target/*.jar ./gestao-pedidos-api-gateway.jar
+COPY --from=builder ./builder/target/*.jar ./gestao-pedidos-api-gateway.jar
 ENTRYPOINT ["java", "-jar", "gestao-pedidos-api-gateway.jar"]

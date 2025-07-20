@@ -5,5 +5,5 @@ RUN mvn package -DskipTests
 
 FROM amazoncorretto:21
 WORKDIR /app
-COPY --FROM=builder ./builder/target/*.jar ./eureka-server.jar
+COPY --from=builder ./builder/target/*.jar ./eureka-server.jar
 ENTRYPOINT ["java", "-jar", "eureka-server.jar"]

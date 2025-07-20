@@ -5,5 +5,5 @@ RUN mvn package -DskipTests
 
 FROM amazoncorretto:21
 WORKDIR /app
-COPY --FROM=builder ./builder/target/*.jar ./pedido-service.jar
+COPY --from=builder ./builder/target/*.jar ./pedido-service.jar
 ENTRYPOINT ["java", "-jar", "pedido-service.jar"]
