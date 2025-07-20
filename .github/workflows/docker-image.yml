@@ -1,0 +1,52 @@
+name: Docker Images CI
+
+on:
+  push:
+    branches: 
+      - "main" 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'adopt'
+        java-version: '21'
+
+    - name: Build Docker Images using Docker Compose
+      working-directory: .
+      run: docker compose build
+
+    - name: Tag Docker Images
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/eureka-server:latest ${{ secrets.DOCKER_USERNAME }}/eureka-server:${{ github.workflow_sha }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/auth-server:latest ${{ secrets.DOCKER_USERNAME }}/auth-server:${{ github.workflow_sha }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/gestao-pedidos-api-gateway:latest ${{ secrets.DOCKER_USERNAME }}/gestao-pedidos-api-gateway:${{ github.workflow_sha }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/cliente-service:latest ${{ secrets.DOCKER_USERNAME }}/cliente-service:${{ github.workflow_sha }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/produto-service:latest ${{ secrets.DOCKER_USERNAME }}/produto-service:${{ github.workflow_sha }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/pedido-service:latest ${{ secrets.DOCKER_USERNAME }}/pedido-service:${{ github.workflow_sha }}
+
+    - name: Push Docker Images to Docker Hub
+      run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/eureka-server:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/eureka-server:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/auth-server:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/auth-server:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestao-pedidos-api-gateway:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestao-pedidos-api-gateway:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/cliente-service:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/cliente-service:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/produto-service:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/produto-service:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/pedido-service:${{github.workflow_sha}}
+        docker push ${{ secrets.DOCKER_USERNAME }}/pedido-service:latest
