@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   eureka-server:
-    image: devmarkz/naming-server:latest
+    image: devmarkz/eureka-server:latest
     build:
       context: ./eureka-server
     ports:
