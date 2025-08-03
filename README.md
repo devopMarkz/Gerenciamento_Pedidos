@@ -150,7 +150,9 @@ Esse padrão é configurado no gateway com `.stripPrefix(1)` para remover o pref
 - **Porta**: `9090`
 - **Função**: Autenticação de usuários, geração e validação de JWTs.
 - **Banco de Dados**: PostgreSQL.
-- **URL Token**: `http://localhost:9090/oauth/token`
+- **URL Token**: `http://localhost:9090/auth/login`
+- **URL Criação de Usuário**: `http://localhost:9090/usuarios`
+
 
 ---
 
