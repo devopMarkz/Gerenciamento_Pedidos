@@ -123,12 +123,6 @@ mvn spring-boot:run
 
 Alternativamente, você pode importar o projeto em sua IDE (IntelliJ IDEA, Eclipse) e executar as classes principais de cada aplicação.
 
-# 📦 Sistema de Microsserviços com Spring Cloud
-
-Este projeto segue a arquitetura de microsserviços utilizando Spring Boot, Spring Cloud, Spring Security e API Gateway com roteamento inteligente e autenticação via JWT.
-
----
-
 ## 📋 Detalhes dos Microsserviços
 
 ### 🔄 Padrão de Roteamento via Gateway
